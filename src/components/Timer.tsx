@@ -7,8 +7,8 @@ interface TimerProps {
 }
 
 export default function Timer({ dispatch, secondsRemaining }: TimerProps) {
-  const mins = Math.floor(secondsRemaining / 60);
-  const seconds = secondsRemaining % 60;
+  const mins = secondsRemaining && Math.floor(secondsRemaining / 60);
+  const seconds = secondsRemaining && secondsRemaining % 60;
   useEffect(
     function () {
       const id = setInterval(() => dispatch({ type: "tick" }), 1000);
@@ -19,7 +19,8 @@ export default function Timer({ dispatch, secondsRemaining }: TimerProps) {
   );
   return (
     <div className="timer">
-      {mins < 10 && "0"} {mins}:{seconds < 10 && "0"}
+      {mins !== null && mins < 10 && "0"} {mins}:
+      {seconds !== null && seconds < 10 && "0"}
       {seconds}
     </div>
   );

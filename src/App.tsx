@@ -67,13 +67,16 @@ function reduce(state: State, action: Action): State {
       return {
         ...state,
         secondsRemaining: state.secondsRemaining && state.secondsRemaining - 1,
-        status: state.secondsRemaining <= 0 ? "finished" : state.status,
+        status:
+          state.secondsRemaining !== null && state.secondsRemaining <= 0
+            ? "finished"
+            : state.status,
       };
     case "restart":
       return { ...initialState, questions: state.questions, status: "ready" };
 
     default:
-      throw new Error("Action Unknow");
+      throw Error();
   }
 }
 
