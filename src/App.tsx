@@ -69,6 +69,8 @@ function reduce(state: State, action: Action): State {
         secondsRemaining: state.secondsRemaining && state.secondsRemaining - 1,
         status: state.secondsRemaining <= 0 ? "finished" : state.status,
       };
+    case "restart":
+      return { ...initialState, questions: state.questions, status: "ready" };
 
     default:
       throw new Error("Action Unknow");
@@ -119,7 +121,11 @@ export default function App() {
           </>
         )}
         {status === "finished" && (
-          <FinishScreen points={points} maxPossiblePoints={maxPossiblePoints} />
+          <FinishScreen
+            points={points}
+            dispatch={dispatch}
+            maxPossiblePoints={maxPossiblePoints}
+          />
         )}
       </Main>
     </div>
