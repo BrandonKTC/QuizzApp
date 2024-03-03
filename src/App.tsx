@@ -86,9 +86,11 @@ export default function App() {
   const maxPossiblePoints = POINTS * questions.length;
 
   useEffect(() => {
-    fetch("http://localhost:3000/questions")
+    fetch("https://brandonktc.github.io/QuizzApp/questions.json")
       .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .then((data) =>
+        dispatch({ type: "dataReceived", payload: data.questions })
+      )
       .catch(() => dispatch({ type: "dataFailed" }));
   }, []);
 
